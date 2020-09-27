@@ -28,4 +28,4 @@ fi
 chmod 755 ${script} >/dev/null 2>/dev/null || true
 
 # Run it
-make
+${script}
