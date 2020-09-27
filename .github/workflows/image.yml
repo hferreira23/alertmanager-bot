@@ -20,9 +20,8 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - 
         name: Compile alertmanager-bot
-        uses: skx/github-action-build@master
-        with:
-          builder: .github/build ./make.sh
+        run: |
+          make
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
