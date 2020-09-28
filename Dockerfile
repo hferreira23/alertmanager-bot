@@ -1,10 +1,12 @@
 FROM golang:alpine AS build-env
 
-RUN apk --no-cache add build-base
+RUN apk --no-cache add build-base git
 
-COPY ./cmd /
-COPY Makefile /
-COPY go* /
+WORKDIR /go
+
+RUN git clone --depth 1 https://github.com/hferreira23/alertmanager-bot.git
+
+WORKDIR /go/alertmanager-bot
 
 RUN make
 
@@ -15,6 +17,6 @@ RUN apk add --update ca-certificates && \
     rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
 
 COPY ./default.tmpl /templates/default.tmpl
-COPY --from=build-env ./alertmanager-bot /usr/bin/alertmanager-bot
+COPY --from=build-env /go/alertmanager-bot/alertmanager-bot /usr/bin/alertmanager-bot
 
 ENTRYPOINT ["/usr/bin/alertmanager-bot"]
