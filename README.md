@@ -1,0 +1,1 @@
+# Bot for Prometheus' Alertmanager
